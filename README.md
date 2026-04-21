@@ -12,7 +12,7 @@ It demonstrates binary search tree concepts using two core classes: `Node` and `
 ## How It Works
 
 On startup, the program creates an empty binary search tree.
-The user is presented with a menu of 6 options:
+The user is presented with a menu of 7 options:
 
 | Option | Description |
 |--------|-------------|
@@ -21,20 +21,21 @@ The user is presented with a menu of 6 options:
 | 3 - Check number of students | Displays the total number of students currently in the tree |
 | 4 - Check number existence | Checks whether a student with a given number exists in the tree |
 | 5 - Check student information, by order | Lists all students in ascending order by student number |
-| 6 - Exit | Ends the program |
+| 6 - Delete a student | Removes the student associated with a given number from the tree |
+| 7 - Exit | Ends the program |
 
 ## Classes Overview
 
 ### `Node`
 - Stores a `Student` (number and name) and pointers to `left` and `right` children
-- Handles recursive BST insertion, search, and in-order traversal
-- Validates that names are non-empty, contain only letters and spaces, and have no leading or trailing spaces
-- Supports: `add`, `contains`, and `inOrder`
+- Handles recursive BST insertion, removal, search, and in-order traversal
+- Supports: `add`, `remove`, `contains`, and `inOrder`
 
 ### `BinTree`
 - Manages the root node and tracks `_size` and `_height`
-- Minimum height is calculated as `log2(size)`, updated on each insertion
-- Supports: `add`, `contains`, `size`, `height`, and `inOrder`
+- Validates that names are non-empty, contain only letters and spaces, and have no leading or trailing spaces
+- Minimum height is calculated as `log2(size)`, updated on each insertion or removal
+- Supports: `add`, `remove`, `contains`, `size`, `height`, and `inOrder`
 
 ## Building
 
@@ -52,12 +53,12 @@ make
 
 ### Windows (Git Bash)
 ```bash
-./student-tree
+./student-bst
 ```
 
 ### Linux/macOS
 ```bash
-./student-tree
+./student-bst
 ```
 
 ## Notes
