@@ -8,13 +8,14 @@ class BinTree
 	Node* root;
 	size_t _size, _height;
 
-public:
-	BinTree();
-	~BinTree();
-	void add(const Student& s);
-	bool contains(size_t i) const;
-	size_t size() const;
-	std::vector<const Student*> inOrder();
-	size_t height() const;
+	public:
+		BinTree();
+		~BinTree();
+		void add(const Student& s);
+		bool remove(size_t number);
+		bool contains(size_t i) const;
+		size_t size() const;
+		std::vector<const Student*> inOrder();
+		size_t height() const;
 };
 #endif

@@ -27,31 +27,31 @@ void printMsg(const vector<string>& lines, BoxStyle style = BoxStyle::Info)
 
     switch (style)
     {
-    case BoxStyle::Error:
-        prefix = "[!!] ";
-        color = Color::Red;
-        break;
+        case BoxStyle::Error:
+            prefix = "[!!] ";
+            color = Color::Red;
+            break;
 
-    case BoxStyle::Warning:
-        prefix = "[!] ";
-        color = Color::Magenta;
-        break;
+        case BoxStyle::Warning:
+            prefix = "[!] ";
+            color = Color::Magenta;
+            break;
 
-    case BoxStyle::Success:
-        prefix = "[+] ";
-        color = Color::Green;
-        break;
+        case BoxStyle::Success:
+            prefix = "[+] ";
+            color = Color::Green;
+            break;
 
-    case BoxStyle::Negative:
-        prefix = "[-] ";
-        color = Color::Yellow;
-        break;
+        case BoxStyle::Negative:
+            prefix = "[-] ";
+            color = Color::Yellow;
+            break;
 
-    case BoxStyle::Info:
-    default:
-        prefix = "[i] ";
-        color = Color::Cyan;
-        break;
+        case BoxStyle::Info:
+        default:
+            prefix = "[i] ";
+            color = Color::Cyan;
+            break;
     }
 
     cout << color << "\n";
@@ -68,12 +68,13 @@ void printMsg(const vector<string>& lines, BoxStyle style = BoxStyle::Info)
 void printMenu()
 {
     cout << "----------------------------------------\n"
-         << "1-> Insert a student.\n"
+         << "1-> Insert a student\n"
          << "2-> Check minimum tree height\n"
          << "3-> Check number of students\n"
          << "4-> Check number existance\n"
          << "5-> Check student information, by order\n"
-         << "6-> Exit program\n\n"
+         << "6-> Delete a student\n"
+         << "7-> Exit program\n\n"
          << "Option: ";
 }
 
@@ -171,8 +172,7 @@ void executeOperation(short const opc, BinTree &student)
             vector<const Student*> students = student.inOrder();
             short i = 0;
 
-            for (const Student* s : students)
-            {
+            for (const Student* s : students) {
                 i++;
                 printMsg({ "Student " + to_string(i) + ": " + to_string(s->number) + ", " + s->name }, BoxStyle::Success);
             }
@@ -181,11 +181,48 @@ void executeOperation(short const opc, BinTree &student)
         }
 
         case 6:
+        {
+            if (student.size() == 0)
+            {
+                printMsg({
+                    "There are no elements in the tree.",
+                    "First, you need to add one." },
+                    BoxStyle::Warning);
+
+                break;
+            }
+
+            size_t number;
+
+            while (true)
+            {
+                printMsg({ "Insert the number of the student to delete." });
+                cout << "Number: ";
+
+                try {
+                    cin >> number;
+                    break;
+                }
+                catch (const ios_base::failure& e) {
+                    printMsg({ "Error: Invalid input. Please enter a number." }, BoxStyle::Error);
+                    cin.clear();
+                    cin.ignore(numeric_limits<streamsize>::max(), '\n');
+                }
+            }
+
+            student.remove(number) ?
+                printMsg({ "Student successfully deleted." }, BoxStyle::Success) :
+                printMsg({ "There is no student associated to that number." }, BoxStyle::Negative);
+                
+            break;
+        }
+
+        case 7:
             cout << "Program ended.";
             break;
 
         default:
-            printMsg({ "Select a number between 1-6." }, BoxStyle::Warning);
+            printMsg({ "Select a number between 1-7." }, BoxStyle::Warning);
             break;
     }
 }
@@ -219,7 +256,7 @@ int main()
 
         executeOperation(opc, student);
 
-    } while (opc != 6);
+    } while (opc != 7);
 
     return 0;
 }

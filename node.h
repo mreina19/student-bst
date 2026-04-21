@@ -18,6 +18,7 @@ class Node
 		Node(const Student& s);
 		~Node();
 		size_t add(Node* n, size_t count);
+		Node* remove(size_t number, bool& found);
 		bool contains(size_t i) const;
 		void inOrder(std::vector<const Student*>& elements);
 };
